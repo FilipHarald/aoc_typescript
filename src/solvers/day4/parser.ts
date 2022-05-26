@@ -12,7 +12,7 @@ const parse = (input: string) => {
   const lines = input.split('\n');
   // console.log(lines);
   const drawingNumbers = lines.shift().split(',');
-  const boards = lines.reduce((acc, line) => {
+  const boards = lines.slice(0, lines.length - 1).reduce((acc, line, index) => {
     // console.log(line);
     if (line === '') {
       acc.push([]);

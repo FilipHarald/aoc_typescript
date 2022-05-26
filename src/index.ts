@@ -15,7 +15,6 @@ const solveDay = day => {
   console.log(`DAY ${day.NUMBER} - reading input...`);
   const inputs = getDayInputs(day.NUMBER);
   console.log(`DAY ${day.NUMBER} - found ${inputs.length} inputs`);
-
   inputs.forEach((input, index) => {
     console.log(`DAY ${day.NUMBER} INPUT ${index} - solving...`);
     const res = day.solve(input);
