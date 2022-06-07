@@ -21,7 +21,7 @@ const parse = (line: string) => {
   }, populationCounter);
 };
 
-const summerizePopulation = pop => Object.values(pop).reduce((sum, generationCount) => sum + generationCount, 0);
+const summerizePopulation = pop => Object.values(pop).reduce((sum: number, generationCount: number) => sum + generationCount, 0);
 
 const solve = (input: string) => {
   let fishPopulation = parse(input);

@@ -1,13 +1,13 @@
 import getDayInputs from './input';
 import {
-//  day4,
-//  day5,
+  day4,
+  day5,
   day6
 } from './solvers';
 
 const AOC_DAY = [
-//  day4,
-//  day5,
+  day4,
+  day5,
   day6
 ];
 
