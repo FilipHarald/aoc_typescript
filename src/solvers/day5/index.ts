@@ -1,3 +1,5 @@
+import {Day} from "../../types";
+
 const NUMBER = '5';
 
 const parse = (line: string): number[][] => {
@@ -55,4 +57,4 @@ const solve = (input: string) => {
 export default {
   NUMBER,
   solve
-}
+} as Day;

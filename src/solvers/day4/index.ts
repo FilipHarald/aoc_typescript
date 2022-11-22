@@ -1,3 +1,4 @@
+import {Day} from '../../types';
 import parse from './parser';
 
 const NUMBER = '4';
@@ -69,4 +70,4 @@ const solve = (input: string) => {
 export default {
   NUMBER,
   solve
-}
+} as Day;

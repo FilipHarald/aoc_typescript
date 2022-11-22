@@ -1,3 +1,5 @@
+import {Day} from "../../types";
+
 const NUMBER = '6';
 
 const NUMBER_OF_DAYS = 256;
@@ -45,4 +47,4 @@ const solve = (input: string) => {
 export default {
   NUMBER,
   solve
-}
+} as Day
