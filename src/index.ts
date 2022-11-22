@@ -14,7 +14,7 @@ const AOC_DAY = [
 //  day5,
 //  day6,
   day12,
-  //day13
+  day13
 ];
 
 const solveDay = (day: Day) => {
