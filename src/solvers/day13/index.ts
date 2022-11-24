@@ -28,8 +28,33 @@ function parse(input: string): ParsedInput {
   );
 }
 
-const solve = (input: string) => {
+function printPartTwo(dots: Point[]) {
+  const { highestX, highestY } = dots.reduce(
+    (acc, dot) => {
+      acc.highestX = acc.highestX > dot.x ? acc.highestX : dot.x;
+      acc.highestY = acc.highestY > dot.y ? acc.highestY : dot.y;
+      return acc;
+    },
+    { highestX: 0, highestY: 0 }
+  );
+
+  let str = "";
+  for (let y = 0; y <= highestY; y++) {
+    for (let x = 0; x <= highestX; x++) {
+      if (dots.find((p: Point) => p.x === x && p.y === y)) {
+        str += "#";
+      } else {
+        str += ".";
+      }
+    }
+    str += "\n";
+  }
+  console.log(str);
+}
+
+function solve(input: string) {
   const { dots, folds } = parse(input);
+
   const finalDots = folds.reduce((dotsBeforeFold, f) => {
     const dotsAfterFold = dotsBeforeFold.reduce((acc, d) => {
       let newDot: Point;
@@ -54,30 +79,7 @@ const solve = (input: string) => {
     return dotsAfterFold;
   }, dots);
 
-
-  // Part 2
-  const { highestX, highestY } = finalDots.reduce(
-    (acc, dot) => {
-      acc.highestX = acc.highestX > dot.x ? acc.highestX : dot.x;
-      acc.highestY = acc.highestY > dot.y ? acc.highestY : dot.y;
-      return acc;
-    },
-    { highestX: 0, highestY: 0 }
-  );
-
-  let str = "";
-  for (let y = 0; y <= highestY; y++) {
-    for (let x = 0; x <= highestX; x++) {
-      if (finalDots.find((p: Point) => p.x === x && p.y === y)) {
-        str += "#";
-      } else {
-        str += ".";
-      }
-    }
-    str += "\n";
-  }
-  console.log(str);
-
+  printPartTwo(finalDots);
   return finalDots.length;
 };
 
