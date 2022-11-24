@@ -18,7 +18,7 @@ function parse(input: string): ParsedInput {
           alongAxis,
           value: +value,
         });
-      } else {
+      } else if (line.match(/^[0-9]/)) {
         const [x, y] = line.split(",");
         acc.dots.push({ x: +x, y: +y });
       }
@@ -33,15 +33,11 @@ const solve = (input: string) => {
   const firstFold = folds[0];
   const finalDots = dots.reduce((acc, d) => {
     let newDot: Point;
-    if (d.x === 6) {
-      console.log(firstFold);
-      console.log(d);
-    }
     const dotAxisValue = d[firstFold.alongAxis];
     const isOutsideFold = dotAxisValue > firstFold.value;
     if (isOutsideFold) {
       const distanceFromAxis = dotAxisValue - firstFold.value;
-      const newValue = dotAxisValue - distanceFromAxis;
+      const newValue = firstFold.value - distanceFromAxis;
       if (firstFold.alongAxis === "x") {
         newDot = { x: newValue, y: d.y };
       } else {
@@ -49,9 +45,6 @@ const solve = (input: string) => {
       }
     } else {
       newDot = d;
-    }
-    if (!newDot.y) {
-      console.log(newDot);
     }
     if (!acc.find((dot: Point) => dot.x === newDot.x && dot.y === newDot.y)) {
       acc.push(newDot);
