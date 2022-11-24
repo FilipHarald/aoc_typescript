@@ -30,27 +30,54 @@ function parse(input: string): ParsedInput {
 
 const solve = (input: string) => {
   const { dots, folds } = parse(input);
-  const firstFold = folds[0];
-  const finalDots = dots.reduce((acc, d) => {
-    let newDot: Point;
-    const dotAxisValue = d[firstFold.alongAxis];
-    const isOutsideFold = dotAxisValue > firstFold.value;
-    if (isOutsideFold) {
-      const distanceFromAxis = dotAxisValue - firstFold.value;
-      const newValue = firstFold.value - distanceFromAxis;
-      if (firstFold.alongAxis === "x") {
-        newDot = { x: newValue, y: d.y };
+  const finalDots = folds.reduce((dotsBeforeFold, f) => {
+    const dotsAfterFold = dotsBeforeFold.reduce((acc, d) => {
+      let newDot: Point;
+      const dotAxisValue = d[f.alongAxis];
+      const isOutsideFold = dotAxisValue > f.value;
+      if (isOutsideFold) {
+        const distanceFromAxis = dotAxisValue - f.value;
+        const newValue = f.value - distanceFromAxis;
+        if (f.alongAxis === "x") {
+          newDot = { x: newValue, y: d.y };
+        } else {
+          newDot = { x: d.x, y: newValue };
+        }
       } else {
-        newDot = { x: d.x, y: newValue };
+        newDot = d;
       }
-    } else {
-      newDot = d;
+      if (!acc.find((dot: Point) => dot.x === newDot.x && dot.y === newDot.y)) {
+        acc.push(newDot);
+      }
+      return acc;
+    }, []);
+    return dotsAfterFold;
+  }, dots);
+
+
+  // Part 2
+  const { highestX, highestY } = finalDots.reduce(
+    (acc, dot) => {
+      acc.highestX = acc.highestX > dot.x ? acc.highestX : dot.x;
+      acc.highestY = acc.highestY > dot.y ? acc.highestY : dot.y;
+      return acc;
+    },
+    { highestX: 0, highestY: 0 }
+  );
+
+  let str = "";
+  for (let y = 0; y <= highestY; y++) {
+    for (let x = 0; x <= highestX; x++) {
+      if (finalDots.find((p: Point) => p.x === x && p.y === y)) {
+        str += "#";
+      } else {
+        str += ".";
+      }
     }
-    if (!acc.find((dot: Point) => dot.x === newDot.x && dot.y === newDot.y)) {
-      acc.push(newDot);
-    }
-    return acc;
-  }, []);
+    str += "\n";
+  }
+  console.log(str);
+
   return finalDots.length;
 };
 
