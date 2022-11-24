@@ -81,7 +81,7 @@ function solve(input: string) {
 
   printPartTwo(finalDots);
   return finalDots.length;
-};
+}
 
 export default {
   NUMBER,
